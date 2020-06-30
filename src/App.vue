@@ -19,9 +19,13 @@ h1 {
 </style>
 <style lang="scss">
 hint {
+      font-style: italic;
   &:before {
     content:"Hint: ";
     font-weight:bold;
+    font-style: normal;
+    font-size:.8em;
+    text-transform: uppercase;
   }
 }
 hr {

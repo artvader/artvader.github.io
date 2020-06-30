@@ -9,18 +9,25 @@ export default {
   data() {
     return {
       msg: "text for ellipsis",
+      loopCount: 0,
     };
   },
   methods: {
     msgLoop: function() {
-      this.msg = this.msg + " " + this.msg;
+      if (this.loopCount < 20) {
+        this.msg = this.msg + " " + "text for ellipsis";
+        this.loopCount++;
+      } else {
+        this.msg = "text for ellipsis";
+        this.loopCount = 0;
+      }
     },
   },
-  mounted() {
-    let i = 0;
-    for (i = 0; i <= 2; i++) {
-      this.msgLoop();
-    }     
+  created() {
+    this.timer = setInterval(this.msgLoop, 1000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
   },
 };
 </script>
