@@ -1,16 +1,20 @@
 <template>
   <div>
     <TextWithGradient />
+    <hr>
+    <MultiLineEllipsis />
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from "vue-property-decorator";
 import TextWithGradient from '@/components/templates/TextWithGradient.vue';
+import MultiLineEllipsis from '@/components/templates/MultiLineEllipsis.vue';
 
 @Component({
   components: {
-    TextWithGradient
+    TextWithGradient,
+    MultiLineEllipsis
   }
 })
 export default class LandingPage extends Vue {

@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Gradient Text</h1>
-    <p>For this to work, The text must have a background color and must not have alpha transparency.</p>
+    <hint>For this to work, The text must have a background color and must not have alpha transparency.</hint>
   </div>
 </template>
 
