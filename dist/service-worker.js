@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.62599460972ee75c38c59678ee0f6521.js"
+  "/precache-manifest.b8b78b950a6216f48703fcb7aacbe727.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "artvader"});
