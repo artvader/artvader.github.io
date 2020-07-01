@@ -4,6 +4,7 @@
     <hr />
     <MultiLineEllipsis />
     <hr />
+    <SVGDonut/>
   </div>
 </template>
 
@@ -11,11 +12,13 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import TextWithGradient from "@/components/templates/TextWithGradient.vue";
 import MultiLineEllipsis from "@/components/templates/MultiLineEllipsis.vue";
+import SVGDonut from "@/components/templates/SVGDonut.vue";
 
 @Component({
   components: {
     TextWithGradient,
     MultiLineEllipsis,
+    SVGDonut,
   },
 })
 export default class LandingPage extends Vue {
