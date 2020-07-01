@@ -1,7 +1,34 @@
 <template>
   <div>
     <div class="multi-line-crop">{{ msg }}</div>
-    <hint>The background color is required and must be a solid color.</hint>
+    <pre>
+      .multi-line-crop {
+        text-align: left;
+        line-height: 1.2em;
+        overflow: hidden;
+        max-height: 3.6em;
+        position: relative;
+        padding-right: 1em;
+        background: white;
+        &:before {
+         content: "...";
+         position: absolute;
+         bottom: 0;
+         right: 0;
+        }
+        &:after {
+         content: "";
+         position: absolute;
+         right: 0;
+         width: 1em;
+         height: 1em;
+         background: white;
+        }
+      }
+    </pre>
+    <hint v-pre
+      >The background color is required and must be a solid color.</hint
+    >
   </div>
 </template>
 <script>
