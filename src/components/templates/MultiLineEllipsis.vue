@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     msgLoop: function() {
-      if (this.loopCount < 20) {
+      if (this.loopCount < 16) {
         this.msg = this.msg + " " + "text for ellipsis";
         this.loopCount++;
       } else {
@@ -51,7 +51,7 @@ export default {
     },
   },
   created() {
-    this.timer = setInterval(this.msgLoop, 1000);
+    this.timer = setInterval(this.msgLoop, 500);
   },
   beforeDestroy() {
     clearInterval(this.timer);
