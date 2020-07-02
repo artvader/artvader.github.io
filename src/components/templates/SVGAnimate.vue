@@ -36,6 +36,38 @@
           </rect>
         </g>
       </svg>
+      <svg viewBox="0 0 160 160" width="180" height="160">
+        <g transform=" matrix(1.2, -1, 0, -0.433, 80, 80)">
+          <path
+            d="M 0,70 A 65,70 0 0,0 65,0 5,5 0 0,1 75,0 75,70 0 0,1 0,70Z"
+            fill="#FF9200"
+          >
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="360 0 0"
+              to="0 0 0"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+          </path>
+        </g>
+        <g transform=" matrix(.00005, 1, -.25, .00005, 60, 80)">
+          <path
+            d="M 0,70 A 65,70 0 0,0 65,0 5,5 0 0,1 75,0 75,70 0 0,1 0,70Z"
+            fill="#FF9200"
+          >
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="360 0 0"
+              to="0 0 0"
+              dur="1s"
+              repeatCount="indefinite"
+            />
+          </path>
+        </g>
+      </svg>
     </div>
     <hint v-pre
       >This does not animate in IE and Opera mini. To calculate radius, we use r
