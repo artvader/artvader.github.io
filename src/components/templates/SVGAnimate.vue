@@ -11,31 +11,47 @@
           />
         </circle>
       </svg>
-      <svg width="40" height="40">
+      <svg width="100" height="100">
         <circle
-          cx="20"
-          cy="20"
-          r="15.91549430918954"
+          cx="50%"
+          cy="50%"
+          r="31.847133"
           fill="transparent"
           stroke="#f98918"
           stroke-width="4"
           class="circle"
-        >
-        </circle>
+        ></circle>
+      </svg>
+      <svg x="0px" y="0px" width="100px" height="100px" xml:space="preserve">
+        <g transform="translate(25, 25)">
+          <rect fill="#FE9FFF" width="50px" height="50px">
+            <animateTransform
+              attributeName="transform"
+              type="rotate"
+              from="0 25 25"
+              to="360 25 25"
+              dur="20s"
+              repeatDur="indefinite"
+            />
+          </rect>
+        </g>
       </svg>
     </div>
-    <hint v-pre>This does not animate in IE and Opera mini.</hint>
+    <hint v-pre
+      >This does not animate in IE and Opera mini. To calculate radius, we use r
+      = C/(2π)</hint
+    >
   </div>
 </template>
 <style lang="scss">
 .circle {
-  stroke-dasharray: 100;
-  stroke-dashoffset: 0;
-  animation: dash 1s linear alternate infinite;
+  stroke-dasharray: 200;
+  stroke-dashoffset: 25;
+  animation: dash 1s linear infinite;
 }
 @keyframes dash {
   from {
-    stroke-dashoffset: 100;
+    stroke-dashoffset: 200;
   }
   to {
     stroke-dashoffset: 0;
