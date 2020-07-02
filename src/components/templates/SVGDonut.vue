@@ -76,7 +76,7 @@
     <hint v-pre
       >stroke-dasharray should always equal to 100. Since our initial
       stroke-dashoffset is 25, in order to place other segments correctly, we
-      deduct the sum of previous segments from 25.</hint
+      deduct the sum of previous segments from 25. We can also compute it as (100 − Previous Segment Total + 25)</hint
     >
   </div>
 </template>
