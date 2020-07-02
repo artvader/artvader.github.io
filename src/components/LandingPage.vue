@@ -4,7 +4,13 @@
     <hr />
     <MultiLineEllipsis />
     <hr />
-    <SVGDonut/>
+    <SVGDonut />
+    <hr />
+    <SVGGrayImage />
+    <hr />
+    <CSSTriangles />
+    <hr />
+    <SVGAnimate />
   </div>
 </template>
 
@@ -13,12 +19,18 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import TextWithGradient from "@/components/templates/TextWithGradient.vue";
 import MultiLineEllipsis from "@/components/templates/MultiLineEllipsis.vue";
 import SVGDonut from "@/components/templates/SVGDonut.vue";
+import SVGGrayImage from "@/components/templates/SVGGrayImage.vue";
+import CSSTriangles from "@/components/templates/CSSTriangles.vue";
+import SVGAnimate from "@/components/templates/SVGAnimate.vue";
 
 @Component({
   components: {
     TextWithGradient,
     MultiLineEllipsis,
     SVGDonut,
+    SVGGrayImage,
+    CSSTriangles,
+    SVGAnimate
   },
 })
 export default class LandingPage extends Vue {

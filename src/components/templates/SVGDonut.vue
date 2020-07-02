@@ -73,7 +73,7 @@
         </g>
       </svg>
     </div>
-    <hint
+    <hint v-pre
       >stroke-dasharray should always equal to 100. Since our initial
       stroke-dashoffset is 25, in order to place other segments correctly, we
       deduct the sum of previous segments from 25.</hint
