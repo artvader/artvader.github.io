@@ -1,0 +1,12 @@
+@import "~vuetify/src/components/VBtn/variables";
+.v-btn:not(.v-btn--outlined) {
+  &:not(.v-btn--round) {
+    @each $name, $size in $btn-sizes {
+      &.v-size--#{$name} {
+        height: rem($size);
+        min-width: rem(round($size * 1.777777777777778)); // default ratio
+        padding: 0 #{rem($size / 2.25)};
+      }
+    }
+  }
+}

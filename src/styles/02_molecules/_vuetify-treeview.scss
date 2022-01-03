@@ -1,0 +1,38 @@
+@mixin treeview-shaped($size, $margin) {
+    .v-treeview-node__root,
+    .v-treeview-node__root:before {
+      border-bottom-right-radius: #{rem($size * 0.5)} !important;
+      border-top-right-radius: #{rem($size * 0.5)} !important;
+    }
+    .v-treeview-node__root {
+      margin-top: $margin;
+      margin-bottom: $margin;
+    }
+  }
+  
+  @mixin treeview-rounded($size, $margin) {
+    .v-treeview-node__root,
+    .v-treeview-node__root:before {
+      border-radius: #{rem($size * 0.5)} !important;
+    }
+  
+    .v-treeview-node__root {
+      margin-top: $margin;
+      margin-bottom: $margin;
+    }
+  }
+  
+  .v-treeview-node {
+    &.v-treeview-node--shaped {
+      @include treeview-shaped(
+        $treeview-node-height,
+        $treeview-node-shaped-margin
+      );
+    }
+    &.v-treeview-node--rounded {
+      @include treeview-rounded(
+        $treeview-node-height,
+        $treeview-node-shaped-margin
+      );
+    }
+  }

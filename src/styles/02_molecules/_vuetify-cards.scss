@@ -1,0 +1,8 @@
+.v-card {
+    &:not(.v-sheet--tile) {
+      &:not(.v-card--shaped) {
+        border-radius: rem(4);
+      }
+    }
+  }
+  

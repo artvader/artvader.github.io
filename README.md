@@ -1,8 +1,4 @@
-To create a new `vue` project, type the following in the terminal:
-`vue ui`
-
-
-# artvader
+# vuetify
 
 ## Project setup
 ```

@@ -1,0 +1,325 @@
+// Load SASS built-in modules
+@use "sass:math";
+@use "sass:string";
+@use "sass:color";
+@use "sass:list";
+@use "sass:map";
+@use "sass:selector";
+@use "sass:meta";
+
+//Table of Contentt/////////////////////////////////////////////////////////////////////////////////
+//01. Strip Unit
+//02. Check if item exists
+//03. Remove Duplicates from Lists/Arrays
+//04. Combine Lists into one, duplicates included
+//05. Purge List
+//06. Debug List
+//07. px to rem
+//08. String Replacement
+//09. Create a box
+//10. Positioning
+//11. Positioning helpers
+//12. Center an element
+//13. Slightly lighten a color
+//14. Slightly darken a color
+//15. Media Breakpoint
+//16. Text Truncate
+//17. Text Sizes
+//18. LTR/RTL Vuetify global mixin
+//19. Custom Scrollbar
+//20. Viewport-based Typography
+//21. Easy CSS Triangle
+
+//Content///////////////////////////////////////////////////////////////////////////////////////
+
+// 01. Strip unit
+/// Remove the unit of a length
+/// @param {Number} $number - Number to remove unit from
+/// @return {Number} - Unitless number
+@function strip-unit($number) {
+  @if type-of($number) == "number" and not unitless($number) {
+    @return $number / ($number * 0 + 1);
+  }
+  @return $number;
+}
+
+//Example Use:  ends-with('16px','px');
+
+//02. Check if item in List/Array exists
+@function contains($list, $var) {
+  @return (false == index($list, $var));
+}
+
+//03. Remove Duplicates from Lists/Arrays
+@function remove-duplicates($list, $recursive: false) {
+  $result: ();
+  @each $item in $list {
+    @if not index($result, $item) {
+      @if length($item) > 1 and $recursive {
+        $result: append($result, remove-duplicates($item, $recursive));
+      } @else {
+        $result: append($result, $item);
+      }
+    }
+  }
+  @return $result;
+}
+
+//04. Combine Lists into one, duplicates included
+@function combine-list($collectedList) {
+  $currentList: [];
+  @each $collectedItem in $collectedList {
+    $currentList: join($currentList, $collectedItem, comma);
+  }
+  @return $currentList;
+}
+
+//05. Purge List
+@function purge($list) {
+  $result: ();
+  @each $item in $list {
+    @if $item != null and $item != false and $item != "" {
+      $result: append($result, $item);
+    }
+  }
+  @return $result;
+}
+
+//06. Debug List
+@function debug($list) {
+  $result: #{"[ "};
+  @each $item in $list {
+    @if length($item) >1 {
+      $result: $result#{debug($item)};
+    } @else {
+      $result: $result#{$item};
+    }
+    @if index($list, $item) != length($list) {
+      $result: $result#{", "};
+    }
+  }
+  $result: $result#{" ]"};
+  @return $result;
+}
+
+//07. px to rem
+@function rem($pixelFontSize) {
+  @return #{(strip-unit($pixelFontSize) / $base-font-size) * 1rem};
+}
+
+//08. String Replacement
+@function str-replace($string, $search, $replace: "") {
+  $index: str-index($string, $search);
+  @if $index {
+    @return str-slice($string, 1, $index - 1) + $replace +
+      str-replace(str-slice($string, $index + str-length($search)), $search, $replace);
+  }
+  @return $string;
+  //str-replace($string, 'findthis', 'replacewiththis');
+}
+
+//09. Create a box
+@mixin box($width, $height: $width) {
+  width: $width;
+  height: $height;
+}
+
+//10. Positioning
+@mixin position($position, $args) {
+  @each $o in top right bottom left {
+    $i: index($args, $o);
+    @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number {
+      #{$o}: nth($args, $i + 1);
+    }
+  }
+  position: $position;
+}
+
+//11. Positioning helpers
+@mixin absolute($args: "") {
+  @include position(absolute, $args);
+}
+
+@mixin fixed($args: "") {
+  @include position(fixed, $args);
+}
+
+@mixin relative($args: "") {
+  @include position(relative, $args);
+}
+//@include absolute(top 100% left 0);
+
+//12. Center an element
+@mixin vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+//13. Slightly lighten a color
+/// @access public
+/// @param {Color} $color - color to tint
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color} */
+@function tint($color, $percentage) {
+  @return mix(white, $color, $percentage);
+}
+
+//14. Slightly darken a color
+/// @access public
+/// @param {Color} $color - color to shade
+/// @param {Number} $percentage - percentage of `$color` in returned color
+/// @return {Color} */
+@function shade($color, $percentage) {
+  @return mix(black, $color, $percentage);
+}
+
+//15. Media Breakpoint
+@import "responsive";
+
+//16. Text Truncate
+@mixin text-truncate($lines: 2, $-line-height: 1, $maskColor) {
+  max-height: #{$-line-height * $lines}em;
+  position: relative;
+  padding-right: rem(16);
+  &:before {
+    content: "...";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    width: rem(16);
+    height: rem(5);
+    margin-top: rem(-6);
+    background: $maskColor;
+    right: 0;
+  }
+}
+
+//17. Text Sizes
+
+@mixin fontSizes($class, $size, $alternateClassName) {
+  @if $alternateClassName != "" {
+    .text-#{$class},
+    .text-#{$alternateClassName} {
+      @include passFontSize($size);
+    }
+  } @else {
+    .text-#{$class} {
+      @include passFontSize($size);
+    }
+  }
+}
+
+@mixin passFontSize($size) {
+  font-size: rem($size);
+  line-height: 1.5em;
+}
+
+//18. LTR/RTL Vuetify global mixin
+@mixin rtl() {
+  .v-application--is-rtl & {
+    @content;
+  }
+}
+
+@mixin ltr() {
+  .v-application--is-ltr & {
+    @content;
+  }
+}
+
+//19. Custom Scrollbar
+@mixin scrollbars($size, $foreground-color, $background-color: mix($foreground-color, white,  50%)) {
+  // For Google Chrome
+  &::-webkit-scrollbar {
+    width:  $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $foreground-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $background-color;
+  }
+
+  // For Internet Explorer
+  & {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+//20. Viewport based Typography
+///
+/// Viewport sized typography with minimum and maximum values
+///
+/// @author Eduardo Boucas (@eduardoboucas)
+///
+/// @param {Number}   $responsive  - Viewport-based size
+/// @param {Number}   $min         - Minimum font size (px)
+/// @param {Number}   $max         - Maximum font size (px)
+///                                  (optional)
+/// @param {Number}   $fallback    - Fallback for viewport-
+///                                  based units (optional)
+///
+/// @example scss - 5vw font size (with 50px fallback), 
+///                 minumum of 35px and maximum of 150px
+///  @include responsive-font(5vw, 35px, 150px, 50px);
+///
+@mixin responsive-font($responsive, $min, $max: false, $fallback: false) {
+  $responsive-unitless: $responsive / ($responsive - $responsive + 1);
+  $dimension: if(unit($responsive) == 'vh', 'height', 'width');
+  $min-breakpoint: $min / $responsive-unitless * 100;
+  
+  @media (max-#{$dimension}: #{$min-breakpoint}) {
+    font-size: $min;
+  }
+  
+  @if $max {
+    $max-breakpoint: $max / $responsive-unitless * 100;
+    
+    @media (min-#{$dimension}: #{$max-breakpoint}) {
+      font-size: $max;
+    }
+  }
+  
+  @if $fallback {
+    font-size: $fallback;
+  }
+  
+  font-size: $responsive;
+}
+//21. Easy CSS Triangle
+
+/// Triangle helper mixin
+/// @param {Direction} $direction - Triangle direction, either `top`, `right`, `bottom` or `left`
+/// @param {Color} $color [currentcolor] - Triangle color 
+/// @param {Length} $size [1em] - Triangle size
+@mixin triangle($direction, $color: currentcolor, $size: 1em) {
+  @if not index(top right bottom left, $direction) {
+    @error "Direction must be either `top`, `right`, `bottom` or `left`.";
+  }
+
+  width: 0;
+  height: 0;
+  content: '';
+  z-index: 2;
+  border-#{opposite-position($direction)}: ($size * 1.5) solid $color;
+  
+  $perpendicular-borders: $size solid transparent;
+  
+  @if $direction == top or $direction == bottom {
+    border-left:   $perpendicular-borders;
+    border-right:  $perpendicular-borders;
+  } @else if $direction == right or $direction == left {
+    border-bottom: $perpendicular-borders;
+    border-top:    $perpendicular-borders;
+  }
+}

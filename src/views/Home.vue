@@ -1,17 +1,19 @@
 <template>
-  <div class="home">
-    <LandingPage msg="Welcome to Your Vue.js App" />
-  </div>
+      <v-row>
+        <v-col :sm="12" v-for="myData in $store.getters.worldData" :key="myData.country">
+          <div v-if="myData.continent !=null" class="tertiary--text">{{myData}}</div>
+        </v-col>
+      </v-row>
 </template>
 
 <script>
 // @ is an alias to /src
-import LandingPage from "@/components/LandingPage.vue";
 
 export default {
   name: "Home",
-  components: {
-    LandingPage
-  }
+  components: {},
+  data: () => ({
+    //
+  }),
 };
 </script>

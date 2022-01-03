@@ -1,0 +1,46 @@
+@mixin list-shaped($size) {
+    .v-list-item {
+        &,
+        &::before,
+        .v-ripple__container {
+          //The ltr/rtl mixin is located in 01_atoms/_03atomic-mixins
+          @include ltr() {
+            border-bottom-right-radius: #{rem($size * 0.6666666666666667)} !important;
+            border-top-right-radius: #{rem($size * 0.6666666666666667)} !important;
+          }
+          @include rtl() {
+            border-bottom-left-radius: #{rem($size * 0.6666666666666667)} !important;
+            border-top-left-radius: #{rem($size * 0.6666666666666667)} !important;
+          }
+        }
+    }
+}
+
+@mixin list-rounded($size) {
+  .v-list-item {
+    &,
+    &::before,
+    > .v-ripple__container {
+      border-radius: #{rem($size * 0.6666666666666667)} !important;
+    }
+  }
+
+}
+
+.v-list--shaped {
+  @include list-shaped($list-item-min-height);
+  &.v-list--two-line {
+    @include list-shaped($list-item-two-line-min-height);
+  }
+  &.v-list--three-line {
+    @include list-shaped($list-item-three-line-min-height);
+  }
+}
+
+.v-list--rounded {
+  padding: rem(8);
+  @include list-rounded($list-item-min-height);
+}
+
+
+
